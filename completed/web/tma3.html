@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>IT S234 Activity 5.12 - Drop-Down Menu</title>
+
+<style type="text/css">
+
+#navlist {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+#navlist li {
+  display: block;
+  float: left;
+  height: auto;
+  width: 160px;
+  margin-right: 5px;
+  position: relative;
+}
+
+#navlist li a {
+  display: block;
+  width: auto;
+  text-align: center;
+  border: outset 10px #E7E3B5;   
+  color: #E7E3B5;
+  background-color: #8B4513;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;         
+  font-weight: normal;
+}
+
+#navlist li a:hover {
+  color: #8B4513;
+  background-color: #FFEFDB;
+  font-weight: bold;
+}
+
+#current {
+  font-weight: bold;
+  background-color: #f90000;
+}
+
+#current a {
+  color: #FFFFFF;
+  font-weight: bold;
+  background-color: #f90000;
+}
+
+#navlist ul {
+  margin-top: 2px;
+  display: none;
+  height: auto;
+  width: 160px;
+  padding: 0;
+  list-style-type: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 100;
+}
+
+#navlist ul li {
+  display: block;
+  float: none;
+  width: 100%;
+  margin-right: 0;
+  margin-bottom: 2px;
+}
+
+#navlist ul li a {
+  display: block;
+  border: outset 5px #E7E3B5;
+  background-color: #8B4513;
+  color: #E7E3B5;
+  padding: 5px 5px;
+  text-align: center;
+  font-size: 0.95em;
+}
+
+#navlist ul li a:hover {
+  background-color: #FFEFDB;
+  color: #8B4513;
+  font-weight: bold;
+}
+
+#navlist li:hover > ul {
+  display: block;
+  position: absolute;
+}
+
+nav {
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+body {
+  padding: 40px;
+  margin: 0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+  <ul id="navlist">
+    <li id="current"><a href="http://ucourse.hkmu.edu.hk/~s1381772">Home</a></li>
+    <li>
+      <a href="http://ucourse.ouhk.edu.hk/~s1381772/tma2/q4a.html">Menus</a>
+      <ul>
+        <li><a href="brunch-menu.html">Brunch</a></li>
+        <li><a href="lunch-menu.html">Lunch</a></li>
+        <li><a href="dinner-menu.html">Dinner</a></li>
+      </ul>
+    </li>
+    <li><a href="events.html">Events</a></li>
+    <li>
+      <a href="gallery.html">Gallery</a>
+      <ul>
+        <li><a href="photo-gallery.html">Photos</a></li>
+        <li><a href="video-gallery.html">Videos</a></li>
+      </ul>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+</body>
+</html>
+
