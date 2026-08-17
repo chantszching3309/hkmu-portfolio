@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Web Design · A2 (print mod)</title>
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ========== PART (b) REQUIREMENTS ========== */
+    /* 1. on screen → all text in red */
+    /* 2. when printed → all text in blue, AND first section (#about-us) hidden */
+
+    /* --- SCREEN RULE: text red --- */
+    body {
+      color: red !important;           /* base text red */
+    }
+
+    /* ensure everything that carries text inherits red */
+    body, .main-title, .section, .section h2, .section p, 
+    .section address, .motto-highlight, .section address *,
+    .title-wrap, h1, h2, p, address, div, span, em, strong {
+      color: red !important;
+    }
+
+    /* special care for background‑dependent readability: 
+       keep backgrounds light so red text stays readable */
+    body {
+      background: #f2e1e1;  /* light warm tone, keeps red readable */
+    }
+    .section {
+      background: #ffeaea;   /* very light red background for sections – still screen only */
+    }
+    /* motto background also softened */
+    .motto-highlight {
+      background: #ffd9d9;
+    }
+    address {
+      background: #ffd0d0;
+    }
+
+    /* --- PRINT RULES: inside @media print --- */
+    @media print {
+      /* force all text to blue */
+      body, .main-title, .section, .section h2, .section p, 
+      .section address, .motto-highlight, .section address *,
+      .title-wrap, h1, h2, p, address, div, span, em, strong {
+        color: blue !important;
+      }
+
+      /* hide the first section (About Us) completely */
+      #about-us {
+        display: none !important;
+      }
+
+      /* optional print tidyness: remove noisy backgrounds, keep white */
+      body {
+        background: white;
+        padding: 0.5in;
+      }
+      .section {
+        background: white;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+      .motto-highlight {
+        background: white;
+        box-shadow: none;
+        border-left: 5px solid #888;
+      }
+      address {
+        background: white;
+        border: 1px solid #aaa;
+      }
+
+      /* keep three sections on one row if possible? the original grid 
+         stays active but we removed first section, so second/third adjust */
+      .sections-grid {
+        display: flex;
+        flex-wrap: nowrap;  /* keep row for print if width allows */
+      }
+      /* avoid extra blank space from hidden section */
+    }
+
+    /* ---------- ORIGINAL LAYOUT (fully preserved) ---------- */
+    /* All original design rules remain untouched below this line.
+       Only addition: above print and screen color overrides.
+       No embedded styles removed. */
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1.5rem;
+      /* background was set above; keep it overridden for screen */
+      background: linear-gradient(145deg, #e9f0f5 0%, #dae3ec 100%);
+      /* note: screen background gradient is overwritten by red background above?
+         we want to keep screen gradient but with red text. Let's adjust:
+         we want body text red, but background light & nice. 
+         The background gradient does not interfere, we just set background again after !important.
+         To be safe, we redefine background for screen only (not important) */
+    }
+
+    /* re‑apply original background gradient for screen (overwrites the solid #f2e1e1) */
+    @media screen {
+      body {
+        background: linear-gradient(145deg, #e9f0f5 0%, #dae3ec 100%) !important;
+      }
+      .section {
+        background: rgba(255, 255, 255, 0.85) !important;
+        backdrop-filter: blur(10px) !important;
+      }
+      .motto-highlight {
+        background: #ebf5fa !important;
+      }
+      address {
+        background: #e2edf5 !important;
+      }
+      /* keep text red */
+      body, .main-title, .section, .section h2, .section p, 
+      .section address, .motto-highlight, .section address *,
+      .title-wrap, h1, h2, p, address, div, span, em, strong {
+        color: red !important;
+      }
+    }
+
+    /* main container */
+    .page-wrapper {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ----- TITLE ----- */
+    .main-title {
+      font-size: 2.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      text-align: center;
+      margin-bottom: 2.2rem;
+      color: #132e42;         /* overridden by red */
+      text-shadow: 4px 4px 12px rgba(17, 55, 80, 0.15);
+      border-bottom: 4px solid #31657e;
+      display: inline-block;
+      padding-bottom: 0.3rem;
+      width: auto;
+    }
+
+    .title-wrap {
+      text-align: center;
+      width: 100%;
+    }
+
+    /* ---------- FLEX CONTAINER (three sections) ---------- */
+    .sections-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      width: 100%;
+      margin: 1.5rem 0;
+    }
+
+    /* ----- base section styles ----- */
+    .section {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 2.5rem;
+      padding: 2.2rem 2rem;
+      box-shadow: 0 25px 45px -18px #1e3f52, 0 10px 20px -10px rgba(0,20,30,0.2);
+      transition: all 0.2s ease;
+      color: #1f3a4b;        /* overridden */
+    }
+
+    .section h2 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      border-left: 8px solid #3f7b9c;
+      padding-left: 1.2rem;
+      line-height: 1.2;
+    }
+
+    .section h2::before {
+      content: "◆ ";
+      font-size: 1.8rem;
+      color: #3f7b9c;          /* overridden */
+      opacity: 0.7;
+      font-weight: 300;
+      margin-right: 0.2rem;
+    }
+
+    .section p {
+      font-size: 1.25rem;
+      margin: 1.2rem 0;
+      line-height: 1.5;
+      color: #1f3a4b;          /* overridden */
+    }
+
+    .section address {
+      font-style: normal;
+      background: #e2edf5;
+      padding: 1.3rem 2rem;
+      border-radius: 3rem;
+      font-size: 1.3rem;
+      border: 1px solid #aec9db;
+      display: inline-block;
+      margin-top: 0.5rem;
+      line-height: 1.8;
+      box-shadow: inset 0 2px 5px rgba(255,255,255,0.8), 0 5px 10px rgba(0,0,0,0.03);
+    }
+
+    .motto-highlight {
+      font-size: 2.1rem;
+      font-weight: 380;
+      background: #ebf5fa;
+      border-radius: 4rem 4rem 4rem 1rem;
+      padding: 1.4rem 2rem;
+      margin: 1rem 0 1.2rem;
+      border-left: 5px solid #31799b;
+      color: #114155;          /* overridden */
+      box-shadow: 0 5px 0 #bed6e5;
+    }
+
+    /* ===== RESPONSIVE BREAKPOINTS ===== */
+    
+    /* LARGER THAN 780px - THREE COLUMNS IN ONE ROW */
+    @media screen and (min-width: 781px) {
+      .sections-grid {
+        flex-wrap: nowrap;  /* FORCE ALL SECTIONS IN ONE ROW */
+        gap: 1.5rem;
+      }
+      
+      .section {
+        flex: 1 1 0;        /* Equal width distribution */
+        min-width: 0;        /* Allow sections to shrink if needed */
+        width: calc(33.333% - 1rem);
+      }
+    }
+
+    /* 480px TO 780px - TWO COLUMNS */
+    @media screen and (mix-width: 780px) and (min-width: 481px) {
+      .sections-grid {
+        flex-wrap: wrap;
+        gap: 1.2rem;
+      }
+      .section {
+        flex: 1 1 calc(50% - 0.8rem);
+        min-width: 200px;
+      }
+    }
+
+    /* SMALLER THAN 480px - STACKED VERTICAL */
+    @media screen and (max-width: 480px) {
+      .sections-grid {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 1.5rem;
+      }
+      .section {
+        flex: 0 1 auto;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .section h2 {
+        font-size: 2rem;
+      }
+
+      .main-title {
+        font-size: 2rem;
+        border-bottom-width: 3px;
+      }
+
+      body {
+        padding: 1.3rem 1rem;
+      }
+    }
+
+    /* Large screen refinement */
+    @media screen and (min-width: 1400px) {
+      .sections-grid {
+        gap: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- Title with intentional typo "Deign" -->
+    <div class="title-wrap">
+      <h1 class="main-title">Responsive Web Deign in A2</h1>
+    </div>
+
+    <!-- EXACTLY THREE SECTIONS - ALWAYS IN ONE ROW ABOVE 780px -->
+    <div class="sections-grid">
+      
+      <!-- SECTION 1 - ABOUT US (will be hidden in print) -->
+      <section class="section" id="about-us">
+        <h2>about us</h2>
+        <p>⭐ We are a small team of creative technologists focused on minimal, accessible design. Based in the pacific northwest, we craft digital experiences with warmth.</p>
+        <p>📬 <strong>contact:</strong> hello@a2design.demo</p>
+      </section>
+
+      <!-- SECTION 2 - OUR MOTTO -->
+      <section class="section" id="our-motto">
+        <h2>our motto</h2>
+        <div class="motto-highlight">
+          "simplicity · empathy · honesty"
+        </div>
+        <p>These three words guide every decision — from pixels to prose. No clutter, no jargon, just clear purpose.</p>
+      </section>
+
+      <!-- SECTION 3 - OUR ADDRESS -->
+      <section class="section" id="our-address">
+        <h2>our address</h2>
+        <address>
+          🏢 42 Lamplight Avenue<br>
+          📍 Suite 2A, Portland, ME 04101<br>
+          📞 +1 (207) 555-0912
+        </address>
+        <p style="margin-top: 1.5rem;">✉️ <em>drop by · we love visitors</em></p>
+      </section>
+    </div>
+  </div>
+
+  <!-- Simple verification script (optional) -->
+  <script>
+    (function() {
+      const sections = document.querySelectorAll('.sections-grid .section');
+      console.log('Number of sections*', sections.length);
+      if (sections.length !== 3) {
+        console.warn('Expected 3 sections, found', sections.length);
+      }
+      
+      // Log the current layout for debugging
+      const width = window.innerWidth;
+      console.log('Current window width:', width);
+      if (width > 780) {
+        console.log('Layout: THREE COLUMNS IN ONE ROW');
+      } else if (width > 480) {
+        console.log('Layout: TWO COLUMNS');
+      } else {
+        console.log('Layout: STACKED VERTICAL');
+      }
+    })();
+  </script>
+</body>
+</html>
